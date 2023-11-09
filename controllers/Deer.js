@@ -30,4 +30,16 @@ exports.Deer_list = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
     };
+    // VIEWS
+    // Handle a show all view
+    exports.Deer_view_all_Page = async function(req, res) {
+    try{
+    theDeer = await Deer.find();
+    res.render('Deer', { title: 'Deer Search Results', results: theDeer });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
     
