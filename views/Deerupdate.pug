@@ -1,0 +1,45 @@
+extends layout
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to update
+  else
+    - let Deerid = toShow._id
+    - let Deer_color = toShow.Deer_color
+    - let Deer_breed = toShow.Deer_breed
+    - let Deer_price= toShow.Deer_price
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{Deerid}
+    - let actionid = "/resource/Deer/" + Deerid
+    - console.log(actionid+" "+Deerid)
+    form(id='DeerForm', action= actionid, method="PUT")
+      div.form-group
+        label.DeerAttr(for='Deer_color') Deer color
+        input#Deer_color(type='text', name='Deer_color', value= Deer_color )
+      div.form-group
+        label.DeerAttr(for='Deer_breed') Deer breed
+        input#Deer_breed(type='text', name='Deer_breed', value= Deer_breed )
+      div.form-group
+        label.DeerAttr(for='Deer_price') Deer price
+        input#Deer_price(type='number', name='Deer_price', value= Deer_price )
+      input(type="submit")
+    script.
+      document.forms['DeerForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show user that form is being submitted
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Update succeded")
+        // TODO handle body
+        }).catch((error) => {
+        // TODO handle error
+          alert("Update failed")
+        });
+      });
+has context menu
+Compose

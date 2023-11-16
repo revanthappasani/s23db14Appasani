@@ -84,3 +84,72 @@ exports.Deer_create_post = async function (req, res) {
     }
 };
 
+exports.Deer_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Deer.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
+
+    exports.Deer_view_one_Page = async function(req, res) {
+        console.log("single view for id " + req.query.id)
+        try{
+        result = await Deer.findById( req.query.id)
+        res.render('Deerdetail',
+        { title: 'Deer Detail', toShow: result });
+        }
+        catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+        }
+        };
+
+// Handle building the view for creating a Deer.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.Deer_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('Deercreate', { title: 'Deer Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+// Handle building the view for updating a Deer.
+// query provides the id
+exports.Deer_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await Deer.findById(req.query.id)
+    res.render('Deerupdate', { title: 'Deer Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+    // Handle a delete one view with id from query
+exports.Deer_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await Deer.findById(req.query.id)
+    res.render('Deerdelete', { title: 'Deer Delete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    
+
+    
+
