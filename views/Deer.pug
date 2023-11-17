@@ -1,16 +1,14 @@
 extends layout
 block content
+    h1= title
+    - let results1=[{Deer_color:"red",Deer_breed:"White-tailed deer",Deer_price:10000},{Deer_color:"brown",Deer_breed:"Fallow deer",Deer_price:11500},{Deer_color:"yellow",Deer_breed:"Mule deer",Deer_price:9000}]
     div(class="container-fluid")
-        h1= title
-    - let results=[{Deer_color:"red",Deer_breed:"White-tailed deer",Deer_price:10000},{Deer_color:"brown",Deer_breed:"Fallow deer",Deer_price:11500},{Deer_color:"yellow",Deer_breed:"Mule deer",Deer_price:9000}]
-        div(class="row")
-            each form,item in results
-                div(class = "col-sm-2 bg-danger" onclick=`buy(${item})`) #{form.Deer_color}              
-                div(class = "col-sm-2 bg-danger" onclick=`buy(${item})`) #{form.Deer_breed}                
-                div(class = "col-sm-2 bg-danger" onclick=`buy(${item})`) #{form.Deer_price}
-                hr
-    script.
-        function buy(itemNo) 
-        { 
-            alert(`You purchased Item ${itemNo+1}`)
-        }
+        div(class="row m-1")
+            each item in results
+                - let destination = `dispatch(\"/Deer/update?id=${item._id}\")`
+                div(class="row-sm-2", class="m-1")  #{item.Deer_color} ,#{item.Deer_breed}, #{item.Deer_price}
+                    button.btn( class="btn-primary ml-1", onclick= destination) Update
+        script.
+            function dispatch(path){
+                window.location.href=path
+            }
