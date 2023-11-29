@@ -22,9 +22,9 @@ router.get('/', Deer_controlers.Deer_view_all_Page );
 /* GET detail costume page */
 router.get('/detail', Deer_controlers.Deer_view_one_Page);
 /* GET create costume page */
-router.get('/create', Deer_controlers.Deer_create_Page);
+router.get('/create',secured, Deer_controlers.Deer_create_Page);
 /* GET create update page */
 router.get('/update',secured, Deer_controlers.Deer_update_Page);
 /* GET delete costume page */
-router.get('/delete', Deer_controlers.Deer_delete_Page);
+router.get('/delete',secured, Deer_controlers.Deer_delete_Page);
 module.exports = router;
