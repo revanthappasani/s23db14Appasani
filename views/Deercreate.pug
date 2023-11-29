@@ -10,7 +10,7 @@ block content
       input#Deer_breed(type='text', name='Deer_breed')
     div.form-group
       label.DeerAttr(for='Deer_price') Deer price 
-      input#Deer_price(type='number', name='Deer_price')
+      input#Deer_price(type='number', name='Deer_price', min = 5, max = 20000)
       input(type="submit")
   script.
     document.forms['DeerForm'].addEventListener('submit', (event) => {
